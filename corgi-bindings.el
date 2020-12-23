@@ -5,6 +5,7 @@
 
   ;; These override evil-window-bottom / evil-window-top. I don't like that we
   ;; are redefining built-in default vim bindings, but we do need a single key
+
   ;; motion for forward/backward sexp. Note that to make this work we remove
   ;; these bindings in init.el from evil-motion-state-map
   ("L" "Forward sexp" :sexp/forward)
@@ -16,22 +17,23 @@
   ;; sticking to the default vim-style bindings
   ;; ("[" "Previous opening delimiter" evil-cp-previous-opening)
   ;; ("]" "Next closing delimiter" evil-cp-next-closing)
+
   ;; ("{" "Next opening delimiter" evil-cp-next-opening)
   ;; ("}" "Previous closing delimiter" evil-cp-previous-closing)
   ;; ("(" "Backward up sexp" evil-cp-backward-up-sexp)
   ;; (")" "Up sexp" evil-cp-up-sexp)
 
-  ("<M-up>" "Expand region" er/expand-region)
-  ("<M-down>" "Expand region" er/contract-region)
+  ;;("<M-up>" "Expand region" er/expand-region)
+  ;;("<M-down>" "Expand region" er/contract-region)
 
   ("gc" "Comment region" comment-region)
   ("gC" "Uncomment region" uncomment-region)
 
   ("SPC" "Global leader key"
    ("b" "Buffer commands"
-    ("b" "Switch buffer" ivy-switch-buffer)
+    ("b" "Switch buffer" counsel-projectile-switch-to-buffer)
+    ("B" "Switch buffer" counsel-switch-buffer)
     ("d" "Kill buffer" kill-this-buffer)
-    ("l" "List buffers" list-buffers)
     ("r" "Rename buffer" rename-buffer)
     ("w" "Toggle read-only" read-only-mode))
 
@@ -52,18 +54,18 @@
 
    ("p" "Project"
     ("f" "Find file" counsel-projectile-find-file)
+    ("r" "Run project" projectile-run-project)
     ("p" "Switch project" counsel-projectile-switch-project))
 
    ("g" "Git"
     ("s" "Magit Status" magit-status))
 
    ("h" "Help"
-    ("d" "Describe"
-     ("k" "Describe key" describe-key)
-     ("v" "Describe variable" counsel-describe-variable)
-     ("f" "Describe function" counsel-describe-function)
-     ("m" "Describe mode" describe-mode)
-     ("b" "Describe bindings" describe-bindings)))
+    ("k" "Describe key" describe-key)
+    ("v" "Describe variable" counsel-describe-variable)
+    ("f" "Describe function" counsel-describe-function)
+    ("m" "Describe mode" describe-mode)
+    ("b" "Describe bindings" describe-bindings))
 
    ("j" "Jump"
     ("i" "Jump in buffer" counsel-imenu)
@@ -90,8 +92,10 @@
     ("a" "Toggle aggressive indent mode" aggressive-indent-mode)
     ("l" "Toggle line numbers" linum-mode))
 
-
-   ("SPC" "Execute command (M-x)" counsel-M-x)
+   ;; ("-" "Ranger" "")
+   ("v" "Expand region mode" er/expand-region)
+   ("SPC" "Buffers" counsel-projectile-switch-to-buffer)
+   ("x" "Execute command (M-x)" counsel-M-x)
    ("u" "Universal prefix" universal-argument)
    ("TAB" "Switch to previous buffer" corgi/switch-to-previous-buffer)
    ("1" "Select window 1" winum-select-window-1)
