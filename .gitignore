@@ -11,3 +11,6 @@ recentf
 smex-items
 .nrepl-port
 corgi-user-config.el
+session.*
+eshell/
+auto-save-list/

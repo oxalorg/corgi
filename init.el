@@ -34,6 +34,11 @@
   (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-next-line)
   (define-key ivy-minibuffer-map (kbd "C-k") #'ivy-previous-line))
 
+(use-package ivy-rich
+  :after (ivy)
+  :init
+  (ivy-rich-mode 1))
+
 (use-package counsel
   :after (ivy)
   :config
@@ -52,10 +57,15 @@
 (use-package undo-fu)
 
 (use-package evil
-  :init (setq evil-want-keybinding nil)
+  :init
+  (setq evil-want-keybinding nil)
+  (setq evil-want-integration t)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-i-jump nil)
   :config
   (evil-mode t)
   (evil-set-undo-system 'undo-fu)
+  ;; Use visual line motions even outside of visual-line-mode buffers
   (setq evil-move-cursor-back nil
         evil-move-beyond-eol t
         evil-want-fine-undo t
@@ -68,7 +78,12 @@
   ;; Prevent evil-motion-state from shadowing previous/next sexp
   (require 'evil-maps)
   (define-key evil-motion-state-map "L" nil)
-  (define-key evil-motion-state-map "M" nil))
+  (define-key evil-motion-state-map "M" nil)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal))
 
 (use-package evil-collection
   :after (evil)
@@ -272,6 +287,7 @@ result."
 (use-package projectile
   :config
   (projectile-global-mode)
+  (setq projectile-project-search-path '("~/projects"))
   (setq projectile-create-missing-test-files t))
 
 (use-package counsel-projectile
@@ -328,7 +344,10 @@ result."
 (use-package evil-magit
   :after (magit))
 
-(use-package expand-region)
+(use-package expand-region
+  :config
+  (setq expand-region-contract-fast-key "V"
+        expand-region-reset-fast-key "r"))
 
 (use-package org)
 
